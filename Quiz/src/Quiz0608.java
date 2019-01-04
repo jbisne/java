@@ -1,18 +1,15 @@
 public class Quiz0608 {
 
 	public static void main(String[] args) {
-		for(int i = 2; i < 9; i++) {
-			for(int j = 1; j < 10; j++)
-				System.out.println(i + " x " + j + " = " + (i * j));
+		//짝수 구구단만 출력하라->for문 2개면 된다.
 		
-		}int i = 2;
-		
-		while((i%0) == 0);
-			System.out.println(i);
-			i++;
+		for (int i=1; i<10; i++ ) {
+			if((i%2) == 0 ) {
+		}
+			for (int j=1; j<10; j++) {
+		}
 
 	}
 
 }
-// j <= i
-// i% == 0
+//이게 짝수단 나오는 첫번째 방법. 여기서 더 추가하면 됨.
