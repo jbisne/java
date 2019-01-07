@@ -1,7 +1,7 @@
 public class Quiz0608 {
 
 	public static void main(String[] args) {
-		//짝수 구구단만 출력하라->for문 2개면 된다.
+		//구구단 출력하라->for문 2개 바로 생각.
 		
 		for (int i=1; i<10; i++ ) {
 			if((i%2) == 0 ) {
