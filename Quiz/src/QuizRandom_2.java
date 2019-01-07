@@ -5,19 +5,24 @@ import java.util.Random;
 public class QuizRandom {
 
 	public static void main(String[] args) {		
-		
+		int num1 = 0;
+		int num2 = 0;
+		int num3 = 0;
+	
 	Random rand = new Random();
-		int num1 = rand.nextInt(9)+1;
-		int num2 = rand.nextInt(10);
-		int num3 = rand.nextInt(10);
+		num1 = rand.nextInt(9)+1;
+		num2 = rand.nextInt(10);
+		num3 = rand.nextInt(10);
 		
 		while (true) {
 		
-			if(num1 != num2 && num1 != num3 && num2 != num3); 
-				
-				break;
-		}
-			System.out.printf("%d%d%d",num1, num2, num3);
+		
+		if(num1 != num2 && num1 != num3 && num2 != num3); 
+			
+			break;
+	}
+		
+		System.out.printf("%d%d%d",num1, num2, num3);
 
 	}
 
