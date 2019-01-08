@@ -1,3 +1,5 @@
+//랜덤 구할때 사용하는 공식.
+
 import java.util.Random;
 
 public class HowToRandom {
