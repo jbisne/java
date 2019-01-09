@@ -9,7 +9,7 @@ public class Quiz_HighLowGame {
 		int yes = rand.nextInt(101); 
 		
 		System.out.println("나는 지금 0부터 100사이의 값 중에 하나를 생각하겠습니다.");
-		System.out.println("당신은 그 숫자를 6회안에 맞추시면 됩니다..");
+		System.out.println("당신은 그 숫자를 6회안에 맞추시면 됩니다.");
 		System.out.println();
 		
 		Scanner sc = new Scanner(System.in);
@@ -18,6 +18,8 @@ public class Quiz_HighLowGame {
 		
 		int num1 = sc.nextInt();
 		
+		while() 
+			
 			for(int i=5; i>=0 ; i--) {
 			
 			if (num1 == yes) {
@@ -32,7 +34,6 @@ public class Quiz_HighLowGame {
 				System.out.printf("["+i+"]"+" 의 기회가 남았습니다.");
 			}	
 				break;
-			
 			
 		
 			}
