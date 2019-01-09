@@ -22,13 +22,13 @@ public class HighLow {
 				if (com < user) System.out.println(user + "는 제가 정한 숫자보다 큽니다.");
 				if (com > user) System.out.println(user + "는 제가 정한 숫자보다 작습니다.");
 				if (com ==user) {
-				/*
+					System.out.println(user + "정답입니다.");
+					break;
+					/*
 				 	 if (com < user) System.out.println(user + "는 제가 정한 숫자보다 큽니다.");
 				else if (com > user) System.out.println(user + "는 제가 정한 숫자보다 작습니다.");
 				else if (com ==user) {
 				이렇게 해도되긴한다. */
-					System.out.println(user + "정답입니다.");
-					break;
 				}
 				if (i<5)
 					System.out.println( (6 - i - 1) + "회 남았습니다.");
