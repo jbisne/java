@@ -29,7 +29,7 @@ class Quiz13_1 {
 			sum += e;
 		}
 		
-		System.out.println("sum :" + sum); 
+		System.out.println("sum :" + sum);
 		
 		/////(총합)/////
 		
@@ -42,6 +42,8 @@ class Quiz13_1 {
 				max =num3;
 			}
 			return max;
+			
+		
 		
 	}
 }
