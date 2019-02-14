@@ -4,24 +4,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Main {
+// 서버 연동
+
+public class Main { 
 
 	static {
 		try {
-			Class.forName("oracle.jdbc.driber.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 		} catch (ClassNotFoundException cnfe) {
 			cnfe.printStackTrace();
 		}
 	}
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		try {
 			Connection con = DriverManager.getConnection(
-					"jdbc:oracle:thin:@localhost:1521:xe",
-					"scott",
-					"tiger");
+					  "jdbc:oracle:thin:@localhost:1521:xe",
+					  "scott",
+					  "tiger");
 			Statement stmt = con.createStatement();
-			
+		
 			//-------------------------------------
 			StringBuffer sb = new StringBuffer();
 			sb.append("create table test1 ( ");
@@ -45,7 +47,7 @@ public class Main {
 			ResultSet rs = stmt.executeQuery(sb.toString());
 			while(rs.next()) {
 				System.out.println("id : " + rs.getString(1) + ", ");
-				System.out.println("ahe : " + rs.getString("age"));
+				System.out.println("age : " + rs.getString("age"));
 			}
 			
 			//-------------------------------------------
@@ -89,5 +91,3 @@ public class Main {
 		}
 	}
 }
-
-

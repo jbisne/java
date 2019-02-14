@@ -26,6 +26,8 @@ public class Main {
 			StringBuffer sb = new StringBuffer();
 			sb.append("select * from employee");
 			
+////////////////// [여기까지가 연동] //////////////////////////////
+			
 			ResultSet rs = stmt.executeQuery(sb.toString());
 			while(rs.next()) {
 				System.out.print("eno : " + rs.getInt(1) + ", ");
