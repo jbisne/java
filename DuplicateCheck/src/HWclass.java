@@ -49,9 +49,9 @@ public class HWclass
 			} else {
 				System.out.println("신규 가입 가능");
 				// 인서트
-				String sql2 = "insert into test3     " +
+				String sql2 = "insert into PERSON     " +
 							  "values ('"+sID+"', '"+sPWD+"')";
-				int uadateCount = stmt.executeUpdate(sql2);
+				int updateCount = stmt.executeUpdate(sql2);
 			}
 			
 			//-----------------------------------------------

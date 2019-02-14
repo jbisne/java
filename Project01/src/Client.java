@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ public class Client
 			cnfe.printStackTrace();
 		}
 	}
-	public static void main(String[] args) throws UnknownHostException, IOException
+	public static void main(String[] args) throws Exception, UnknownHostException, IOException
 	{
 		while(true)
 		{
@@ -34,43 +35,61 @@ public class Client
 			
 			if(num==1)	
 			{	
-				Scanner s1 = new Scanner(System.in);
-				String name;
+				Scanner s1 = new Scanner(System.in);					
+				Connection con = null;
+				Statement stmt = null;		
+				ResultSet rs = null;
 				String id;
 				String pwd;
-				System.out.println("회원가입을 시작합니다.");
-				System.out.println("이름 : ");	
-				name = s1.next();
-				System.out.println("ID : ");
-				id = s1.next();
-				System.out.println("PASSWORD : ");
-				pwd = s1.next();
+				String name;
 				
-				try 
-				{
-					Connection con = DriverManager.getConnection(
-							"jdbc:oracle:thin:@localhost:1521:xe",
-							"scott",
-							"tiger");
-					Statement stmt = con.createStatement();			
-					StringBuffer sb = new StringBuffer();
+				try {
+					con = DriverManager.getConnection(
+							  "jdbc:oracle:thin:@localhost:1521:xe",
+							  "scott",
+							  "tiger");
+					stmt = con.createStatement();
 					
-					sb.append("insert into PERSON	");
-					sb.append(" values ('"+name+"','"+id+"' ,'"+pwd+"') ");
-					stmt.executeUpdate(sb.toString());
+					System.out.println("이름을 입력하세요.");
+					name = s1.next();
+										
+					System.out.println("아이디를 입력하세요.");			
+					id = s1.next();
 					
+					System.out.println("비밀번호를 입력하세요.");
+					pwd = s1.next();
+
+					//-----------------------------------------------
+					String sql = "select * from PERSON where id = '"+id+"'";
+					//System.out.println(sql);
+					//-> 여기아래를 전부 주석 풀엇다걸엇다하면서 제대로 출력되는지확인용
+					//밑에 주석넣을때는 syso(sql)저기를 출력해봄.
+					
+					rs = stmt.executeQuery(sql);
+					if(rs.next()) {
+						System.out.println("중복된 아이디입니다. \n다시 입력해 주세요. \n");
+					} else {
+						System.out.println("가입되셨습니다. \n");
+						// 인서트
+						String sql2 = "insert into PERSON     " +
+									  "values ('"+name+"','"+id+"', '"+pwd+"')";
+						int updateCount = stmt.executeUpdate(sql2);
+					}
+					
+					//-----------------------------------------------
+					rs.close();
 					stmt.close();
 					con.close();
-					System.out.println("회원가입이 완료되었습니다!");
-					System.out.println("");	
 					
-				} catch(Exception e) {
-					System.out.println("회원가입을 실패했습니다.");
-					System.out.println("아이디가 존재합니다.");
-					System.out.println();
-					continue;				
+				} catch (SQLException sqle) {
+					System.out.println("Connection Error");
+					sqle.printStackTrace();
 				}
+				
+				
 			}
+		
+	
 		
 	
 				
@@ -127,9 +146,7 @@ public class Client
 								System.out.println("서버와 연결해주세요.");
 							}
 								break;
-								
-								
-					
+																				
 						} else {
 							System.out.println("정보가 틀렸습니다.");
 							System.out.println("다시 입력해주세요.");
@@ -137,22 +154,18 @@ public class Client
 							continue;
 						}
 						
-					}
-					
+					}					
 			
 					if(id.equals("")) {
 					System.out.println("아이디가 없습니다.");
 					System.out.println("다시 입력해주세요.");
 					continue;
 					}
-					
-		
+							
 					rs.close();
 					pstmt.close();
 					con.close();
-					break;
-					
-							
+					break;												
 				} 
 				catch (Exception e) {
 						e.printStackTrace();
@@ -160,23 +173,6 @@ public class Client
 				}							
 			}
 			
-//			try {
-//				String ServerIP = "localhost";
-//				if(args.length>0)
-//					ServerIP = args[0];
-//				Socket socket = new Socket(ServerIP, 9999);
-//				System.out.println("서버와 연결되었습니다.");
-//				
-//				Thread receiver = new ReceiverP01(socket);
-//				receiver .start();
-//				
-//				new ChatWin(socket,id);
-//				
-//			} catch (Exception e) {
-//				System.out.println("서버와 연결해주세요.");
-//			}	
-
-		
 			if(num==3)
 			{
 				Scanner s3 = new Scanner(System.in);
@@ -263,8 +259,3 @@ public class Client
 		}
 	}
 }
-
-
-
-		
-
