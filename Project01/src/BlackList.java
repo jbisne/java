@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Client
+public class BlackList
 {	
 	static {
 		try {
@@ -61,7 +61,7 @@ public class Client
 					pwd = s1.next();
 
 					//-----------------------------------------------
-					String sql = "select * from PERSON where id = '"+id+"'";
+					String sql = "select * from BLACKLIST where id = '"+id+"'";
 					//System.out.println(sql);
 					//-> 여기아래를 전부 주석 풀엇다걸엇다하면서 제대로 출력되는지확인용
 					//밑에 주석넣을때는 syso(sql)저기를 출력해봄.
@@ -72,8 +72,8 @@ public class Client
 					} else {
 						System.out.println("가입되셨습니다. \n");
 						// 인서트
-						String sql2 = "insert into PERSON     " +
-									  "values ('"+name+"','"+id+"', '"+pwd+"')";
+						String sql2 = "insert into BLACKLIST     " +
+									  "values ('"+name+"','"+id+"', '"+pwd+"', 0)";
 						int updateCount = stmt.executeUpdate(sql2);
 					}
 					
@@ -104,6 +104,7 @@ public class Client
 				String pwd;
 				String UserID;
 				String password;
+				int BlackPoint;
 				System.out.println("로그인을 시작합니다.");
 				System.out.println("");
 				System.out.println("ID : ");
@@ -118,7 +119,7 @@ public class Client
 							"scott",
 							"tiger");
 					
-					String sql = "select * from PERSON where ID = "+"'" +id+ "'";
+					String sql = "select * from BLACKLIST where ID = "+"'" +id+ "'";
 					PreparedStatement pstmt = con.prepareStatement(sql);				
 					ResultSet rs = pstmt.executeQuery();
 					
@@ -126,11 +127,24 @@ public class Client
 					{
 						UserID = rs.getString(2);
 						password = rs.getString(3);
+						BlackPoint = rs.getInt(4);
 					
 					
 						if(UserID.equals(id) && password.equals(pwd)) 
 						{
+							if(rs.getInt(4)>0)
+							{
+								System.out.println();
+								System.out.println("블랙리스트입니다. 접속이 차단됩니다.");
+								continue;
+							} else {
+								System.out.println();
+								
+							}
+						
 							System.out.println("로그인 되었습니다");
+
+						
 ////////////////////////// [ 로그인 -> 자동서버접속 ] /////////////////					
 							try {
 								String ServerIP = "localhost";
@@ -140,7 +154,7 @@ public class Client
 								System.out.println("서버와 연결되었습니다.");
 								
 								Thread receiver = new ReceiverP01(socket);
-								receiver .start();
+								receiver.start();
 								
 								new ChatWin(socket,id);
 								
@@ -204,7 +218,7 @@ public class Client
 				Statement stmt = con.createStatement();			
 				StringBuffer sb = new StringBuffer();
 				
-				String sql = "select * from PERSON where id = '"+id+"'";
+				String sql = "select * from BLACKLIST where id = '"+id+"'";
 				PreparedStatement pstmt = con.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery();
 				
@@ -217,7 +231,7 @@ public class Client
 				
 					if(UserName.equals(name) && UserID.equals(id) && password.equals(pwd)) 
 					{
-						sql = "delete from PERSON where ID = '"+id+"'";
+						sql = "delete from BLACKLIST where ID = '"+id+"'";
 						pstmt = con.prepareStatement(sql);
 						rs = pstmt.executeQuery();
 						sb.setLength(0);
