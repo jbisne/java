@@ -85,9 +85,7 @@ public class BlackList
 				} catch (SQLException sqle) {
 					System.out.println("Connection Error");
 					sqle.printStackTrace();
-				}
-				
-				
+				}							
 			}
 		
 	

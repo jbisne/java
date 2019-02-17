@@ -1,10 +1,12 @@
-////////// (의만이꺼) ////////////
-
-import java.io.*;
-
-import java.net.*;
-
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class MultiServer7 {
 		
@@ -47,7 +49,8 @@ public class MultiServer7 {
 		}
 	}
 		//접속자 리스트 보내기
-		public void list(PrintWriter out) {
+		public void list(PrintWriter out) 
+		{
 			
 			//출력스트림을  순차적으로 얻어와서 해당 메시지를 출력한다
 			Iterator<String> it = clientMap.keySet().iterator();
@@ -61,20 +64,24 @@ public class MultiServer7 {
 		}
 		
 		//귓속말 보내기///////////////////////////
-		public void sendToMsg(String user,String msg) {
+		public void sendToMsg(String user,String msg) 
+		{
 			Iterator<String> it = clientMap.keySet().iterator();
 			PrintWriter it_out = (PrintWriter) clientMap.get(it.next());
 			int begin = msg.indexOf(" ") + 1;
 			int end = msg.indexOf(" ", begin);
 
-			if(end != -1) {
+			if(end != -1) 
+			{
 				String id = msg.substring(begin, end);
 				String message = msg.substring(end+1);
 				
 				it_out = (PrintWriter)clientMap.get(id);
 				
-				try {
-					if(it_out != null) {
+				try 
+				{
+					if(it_out != null) 
+					{
 						it_out.println("["+"to:"+user+"] "+ message);
 						
 						it_out.flush();
@@ -95,8 +102,10 @@ public class MultiServer7 {
 			// 출력스트림을 순차적으로 얻어와서 해당 메시지를 출력한다.
 			Iterator<String> it = clientMap.keySet().iterator();
 			
-			while(it.hasNext()) {
-			   try {
+			while(it.hasNext()) 
+			{
+			   try 
+			   {
 				   PrintWriter it_out = (PrintWriter) clientMap.get(it.next());
 				   if(user.equals(""))
 					   it_out.println(msg);
@@ -105,32 +114,34 @@ public class MultiServer7 {
 
 			}catch(Exception e) {
 				System.out.println("예외:"+e);
-			}
+			   }
 		   }
 		}
-	public void NoBadTalk(String user, String msg)
-	{
-		Iterator<String> it = clientMap.keySet().iterator();
-		PrintWriter it_out = (PrintWriter) clientMap.get(it.next());
-		int begin = msg.indexOf("씨");
-		int end = msg.indexOf("발", begin);
-		String nbt = msg.substring(begin, end);
+	
+		public void NoBadTalk(String user, String msg)
+		{
 		
-		if(end != -1) {
+			Iterator<String> it = clientMap.keySet().iterator();
+			PrintWriter it_out = (PrintWriter) clientMap.get(it.next());
+			int begin = msg.indexOf("씨");
+			int end = msg.indexOf("발", begin);
+			String nbt = msg.substring(begin, end);
 			
-			try {
-				if(nbt.equals("씨발")) {
-					
-					it_out.println("["+user+"] ");
+			if(end != -1) {
 				
-				} else {
-					it_out.println("["+user+"님 욕하지마세요.]");
+				try {
+					if(nbt.equals("씨발")) {
+						
+						it_out.println("["+user+"] ");
+					
+					} else {
+						it_out.println("["+user+"님 욕하지마세요.]");
+					}
+				} catch (Exception e) {
+					System.out.println("욕");
 				}
-			} catch (Exception e) {
-				System.out.println("욕");
 			}
 		}
-	}
 		
 		// main 메서드
 		public static void main(String[] args)
@@ -220,11 +231,8 @@ public class MultiServer7 {
 			        	socket.close();
 			       }catch(Exception e) {
 				    e.printStackTrace();
-			}
-		}
-	}
-		
-
-		
+			       }
+	        	}
+			}				
 	}
 }
